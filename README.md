@@ -15,6 +15,10 @@
 ### Games
 
 - [Game Loop](./gameloop)
+- [Sprites](./sprites)
 - [Canvas en Keyboard input](./canvas-keyboard)
 - [Games Workshop with P5](https://github.com/HR-CMGT/CLE4-P5-workshop)
 - [Advanced Games Workshop with Phaser](https://github.com/HR-CMGT/CLE4-phaser-workshop)
+- [Communicatie tussen Classes](https://github.com/HR-CMGT/CLE-speedcourses/tree/master/custom-events)
+- [Wisselen tussen schermen](https://github.com/HR-CMGT/CLE-speedcourses/tree/master/screens)
+- [💥 Bullets and Explosions](./bullets-explosions/)
