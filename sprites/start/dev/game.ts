@@ -4,11 +4,20 @@ const bg = document.querySelector('background')! as HTMLElement
 let fishes : HTMLElement[] = []
 let bubbles : HTMLElement[] = []
 
+let paused = false
+let bgpos = 0
+let frame = 0 
+let animFrames = 3
+let framWidth = 130
+let fishFPS = 0 
+
 function createFishAndBubble(){
     for(let i = 0;i<4;i++){
         createFish()
         createBubble()
     }
+    pauseButton.addEventListener("click", () => pauseGame())
+
     gameLoop()
 }
 
@@ -21,6 +30,16 @@ function gameLoop(){
         }
         let newYposition = position.top + Math.sin(newXposition/15)
         fish.style.transform = `translate(${newXposition}px, ${newYposition}px)`
+        // spritesheet
+        fishFPS++
+        if(fishFPS % 30 == 0) {
+            frame++
+        }
+        if(frame>animFrames){
+            frame = 0 
+        }
+        let pos = 0 -(frame * framWidth)
+        fish.style.backgroundPosition = `${pos}px 0px`
     }
     for (let bubble of bubbles) {
         let position = bubble.getBoundingClientRect()
@@ -30,7 +49,15 @@ function gameLoop(){
         }
         bubble.style.transform = `translate(${position.left}px, ${newposition}px)`
     }
-    requestAnimationFrame(()=>gameLoop())
+
+
+// bg scroll
+    bgpos--
+    bg.style.backgroundPosition = `${bgpos}px 0px`
+
+    if(!paused){
+        requestAnimationFrame(()=>gameLoop())
+    }
 }
 
 function createFish(){
@@ -71,6 +98,16 @@ function popBubble(e:Event) {
     bubble.remove()
     bubbles = bubbles.filter(b => b != bubble)
     plopSound.play()
+}
+
+function pauseGame() {
+    paused = !paused
+    if(!paused) {
+        pauseButton.innerText = "pause"
+        gameLoop()
+    } else {
+        pauseButton.innerText = "Resume Game"
+    }
 }
 
 createFishAndBubble()
